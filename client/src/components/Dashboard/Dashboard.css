@@ -1,0 +1,80 @@
+.container-fluid {
+  margin: 20px auto;
+
+  height: 100vh;
+  min-height: 100%;
+  overflow: hidden;
+}
+.content {
+  height: 90%;
+  margin: 20px 20px;
+  overflow: auto;
+}
+.todo-list {
+  height: 100%;
+  list-style-type: none;
+}
+
+.todo-list li {
+  height: 12%;
+  min-width: 0;
+  width: 100%;
+  box-shadow: 0px 5px 5px -6px;
+  margin-bottom: 16px;
+  float: left;
+  position: relative;
+}
+.todo-list li:hover {
+  background-color: rgba(149, 165, 165, 0.2);
+}
+.todo-item {
+  display: flex;
+  height: 100%;
+}
+.todo-progress {
+  height: 100%;
+  width: 5px;
+}
+.todo-title {
+  display: inline-block;
+  width: 100vw;
+  height: 100%;
+  margin-top: 8px;
+  font-size: 20px;
+  margin-left: 16px;
+}
+.todo-subtitle {
+  font-size: 14px;
+  color: rgb(149, 165, 165);
+}
+.todo-delete {
+  position: relative;
+  float: right;
+}
+.todo-edit {
+  position: relative;
+  float: right;
+}
+.todo-complete {
+  position: relative;
+  float: right;
+}
+
+.todo-subtitle span {
+  margin-right: 10px;
+}
+.todo-subtitle span svg {
+  margin-right: 4px;
+}
+.todo-title .badge {
+  margin: 0;
+  float: right;
+  height: 1.5em;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  font-size: 0.8em;
+  font-weight: 450;
+  margin-right: 20px;
+}
