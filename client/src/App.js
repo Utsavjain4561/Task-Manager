@@ -9,7 +9,7 @@ export default class App extends Component {
       <div className="container-fluid fill">
         <div className="row">
           <div className="sidebar-menu col-2 col-md-2">
-            <Sidebar />
+            <Sidebar openForm={this.openForm} />
           </div>
           <div className="dashboard col-2 col-md-10">
             <Dashboard />

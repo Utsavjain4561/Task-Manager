@@ -10,6 +10,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Dashboard.css";
 export default class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      edit: false,
+    };
+  }
+  handleEdit = () => {
+    document.querySelector("body").style.opacity = "0.5";
+    this.setState((prevState) => ({
+      edit: !prevState.edit,
+    }));
+  };
   render() {
     return (
       <div className="container-fluid">
@@ -24,7 +36,15 @@ export default class Dashboard extends Component {
                 ></div>
                 <div className="todo-title">
                   <div>
-                    <span>Practice Javascript daily</span>
+                    <span
+                      contentEditable={this.state.edit}
+                      onBlur={(event) => {
+                        console.log(event.target.textContent);
+                        this.handleEdit();
+                      }}
+                    >
+                      Practice Javascript daily
+                    </span>
                     <span className="badge badge-primary">In progress</span>
                   </div>
                   <div className="todo-subtitle">
@@ -49,7 +69,10 @@ export default class Dashboard extends Component {
                       title="Edit"
                       className="todo-edit"
                     >
-                      <FontAwesomeIcon icon={faEdit} />
+                      <FontAwesomeIcon
+                        onClick={this.handleEdit}
+                        icon={faEdit}
+                      />
                     </span>
                     <span
                       data-toggle="tooltip"
@@ -66,120 +89,58 @@ export default class Dashboard extends Component {
             <li>
               <div className="todo-item">
                 <div
-                  style={{ background: "rgb(156,86,184)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-success">Completed</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(81,216,138)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-success">Completed</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
                   style={{ background: "rgb(43,151,224)" }}
                   className="todo-progress"
                 ></div>
                 <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-danger">Pending</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(81,216,138)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-danger">Pending</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(43,151,224)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-primary">In progress</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(81,216,138)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-success">Completed</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(81,216,138)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-danger">Pending</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(255,85,33)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-success">Completed</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(81,216,138)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-success">Completed</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="todo-item">
-                <div
-                  style={{ background: "rgb(255,85,33)" }}
-                  className="todo-progress"
-                ></div>
-                <div className="todo-title">
-                  <span>Practice Javascript daily</span>
-                  <span className="badge badge-success">Completed</span>
+                  <div>
+                    <span
+                      contentEditable={this.state.edit}
+                      onBlur={(event) => {
+                        console.log(event.target.textContent);
+                        this.handleEdit();
+                      }}
+                    >
+                      Practice Javascript daily
+                    </span>
+                    <span className="badge badge-primary">In progress</span>
+                  </div>
+                  <div className="todo-subtitle">
+                    <span className="todo-type">
+                      <FontAwesomeIcon icon={faBars} />
+                      Work
+                    </span>
+                    <span className="due-date">
+                      <FontAwesomeIcon icon={faClock} />5 May
+                    </span>
+                    <span
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Delete"
+                      className="todo-delete"
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </span>
+                    <span
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Edit"
+                      className="todo-edit"
+                    >
+                      <FontAwesomeIcon
+                        onClick={this.handleEdit}
+                        icon={faEdit}
+                      />
+                    </span>
+                    <span
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Done"
+                      className="todo-complete"
+                    >
+                      <FontAwesomeIcon icon={faCheck} />
+                    </span>
+                  </div>
                 </div>
               </div>
             </li>
