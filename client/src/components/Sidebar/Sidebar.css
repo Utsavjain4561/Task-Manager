@@ -60,7 +60,7 @@
   color: white;
   display: inline-block;
   width: 30px;
-  margin-right: 8px;
+  margin-right: 16px;
   height: 30px;
   border-radius: 50%;
   text-align: center;
@@ -85,7 +85,7 @@
   font-weight: 300;
 }
 
-.react-datepicker__input-container input {
+/* .react-datepicker__input-container input {
   color: #495057;
   display: block;
   width: 100%;
@@ -112,14 +112,7 @@
   text-align: start;
   font-size: 18px;
   font-weight: 400;
-}
-#list-label {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  text-align: center;
-  background-color: red;
-}
+} */
 
 @media only screen and (max-width: 768px) {
   .header-title {
