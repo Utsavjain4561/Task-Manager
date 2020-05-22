@@ -9,18 +9,6 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 export default class TodoListItem extends Component {
-  constructor() {
-    super();
-    this.state = {
-      edit: false,
-    };
-  }
-  handleEdit = () => {
-    document.querySelector("body").style.opacity = "0.5";
-    this.setState((prevState) => ({
-      edit: !prevState.edit,
-    }));
-  };
   render() {
     return (
       <div className="todo-item">
@@ -31,11 +19,11 @@ export default class TodoListItem extends Component {
         <div className="todo-title">
           <div>
             <span
-              contentEditable={this.state.edit}
-              onBlur={(event) => {
-                console.log(event.target.textContent);
-                this.handleEdit();
-              }}
+            //   contentEditable={this.state.edit}
+            //   onBlur={(event) => {
+            //     console.log(event.target.textContent);
+            //     this.handleEdit();
+            //   }}
             >
               {this.props.todo.title} {/*   Add title of TODO */}
             </span>
@@ -66,7 +54,7 @@ export default class TodoListItem extends Component {
               title="Edit"
               className="todo-edit"
             >
-              <FontAwesomeIcon onClick={this.handleEdit} icon={faEdit} />
+              <FontAwesomeIcon icon={faEdit} />
             </span>
             <span
               data-toggle="tooltip"

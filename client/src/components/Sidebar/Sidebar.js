@@ -30,7 +30,12 @@ export default class Sidebar extends Component {
         </div>
         <div className="side-body">
           <ul>
-            <span className="menu-title">Category</span>
+            <span
+              className="menu-title"
+              onClick={() => this.props.showTodo("All")}
+            >
+              Category
+            </span>
             <li>
               <div className="menu-list">
                 <div
@@ -39,8 +44,8 @@ export default class Sidebar extends Component {
                 >
                   W
                 </div>
-                <span>Work</span>
-                <span className="count">12</span>
+                <span onClick={() => this.props.showTodo("Work")}>Work</span>
+                <span className="count">{this.props.countWork}</span>
               </div>
             </li>
             <li>
@@ -51,8 +56,10 @@ export default class Sidebar extends Component {
                 >
                   P
                 </div>
-                <span>Personal</span>
-                <span className="count">6</span>
+                <span onClick={() => this.props.showTodo("Personal")}>
+                  Personal
+                </span>
+                <span className="count">{this.props.countPersonal}</span>
               </div>
             </li>
             <li>
@@ -63,8 +70,10 @@ export default class Sidebar extends Component {
                 >
                   S
                 </div>
-                <span>Shopping</span>
-                <span className="count">0</span>
+                <span onClick={() => this.props.showTodo("Shopping")}>
+                  Shopping
+                </span>
+                <span className="count">{this.props.countShopping}</span>
               </div>
             </li>
             <li>
@@ -75,8 +84,10 @@ export default class Sidebar extends Component {
                 >
                   O
                 </div>
-                <span>Others</span>
-                <span className="count">2</span>
+                <span onClick={() => this.props.showTodo("Others")}>
+                  Others
+                </span>
+                <span className="count">{this.props.countOthers}</span>
               </div>
             </li>
             <li>

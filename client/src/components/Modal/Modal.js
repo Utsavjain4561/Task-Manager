@@ -64,13 +64,14 @@ export default class Modal extends Component {
       color: color,
     };
     //Adding the TODO to the main list
-    this.props.addTodo(todo);
+    this.props.addTodo(todo, this.state.category);
   };
   handleShowForm = () => {
     this.setState((prevState) => ({
       showForm: !prevState.showForm,
     }));
   };
+
   render() {
     return (
       <div

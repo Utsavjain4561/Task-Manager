@@ -1,0 +1,109 @@
+{
+  "workTodos": [
+    {
+      "title": "Solve the bug in dispatch module",
+      "category": "Work",
+      "dueDate": "12 May",
+      "color": "rgb(43,151,224)"
+    },
+
+    {
+      "title": "Prepare for exams in the mid June",
+      "category": "Work",
+      "dueDate": "10 June",
+      "color": "rgb(43,151,224)"
+    },
+
+    {
+      "title": "Solve the bug in dispatch module",
+      "category": "Work",
+      "dueDate": "12 May",
+      "color": "rgb(43,151,224)"
+    },
+
+    {
+      "title": "Prepare for exams in the mid June",
+      "category": "Work",
+      "dueDate": "10 June",
+      "color": "rgb(43,151,224)"
+    }
+  ],
+  "personalTodos": [
+    {
+      "title": "Complete guitar lesson 1",
+      "category": "Personal",
+      "dueDate": "29 May",
+      "color": "rgb(156,86,184)"
+    },
+    {
+      "title": "Complete guitar lesson 1",
+      "category": "Personal",
+      "dueDate": "29 May",
+      "color": "rgb(156,86,184)"
+    },
+    {
+      "title": "Complete guitar lesson 1",
+      "category": "Personal",
+      "dueDate": "29 May",
+      "color": "rgb(156,86,184)"
+    },
+    {
+      "title": "Complete guitar lesson 1",
+      "category": "Personal",
+      "dueDate": "29 May",
+      "color": "rgb(156,86,184)"
+    }
+  ],
+  "shoppingTodos": [
+    {
+      "title": "Save money to buy macbook",
+      "category": "Shopping",
+      "dueDate": "1 June",
+      "color": "rgb(81,216,138)"
+    },
+    {
+      "title": "Buy 10kg sugar from supermarket",
+      "category": "Shopping",
+      "dueDate": "14 May",
+      "color": "rgb(81,216,138)"
+    },
+    {
+      "title": "Save money to buy macbook",
+      "category": "Shopping",
+      "dueDate": "1 June",
+      "color": "rgb(81,216,138)"
+    },
+    {
+      "title": "Buy 10kg sugar from supermarket",
+      "category": "Shopping",
+      "dueDate": "14 May",
+      "color": "rgb(81,216,138)"
+    }
+  ],
+  "othersTodos": [
+    {
+      "title": "Go to gym @9pm",
+      "category": "Others",
+      "dueDate": "5 July",
+      "color": "rgb(255,85,33)"
+    },
+    {
+      "title": "Pay pending electricity bill",
+      "category": "Others",
+      "dueDate": "5 June",
+      "color": "rgb(255,85,33)"
+    },
+    {
+      "title": "Go to gym @9pm",
+      "category": "Others",
+      "dueDate": "5 July",
+      "color": "rgb(255,85,33)"
+    },
+    {
+      "title": "Pay pending electricity bill",
+      "category": "Others",
+      "dueDate": "5 June",
+      "color": "rgb(255,85,33)"
+    }
+  ]
+}

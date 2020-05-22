@@ -6,7 +6,24 @@
   overflow: hidden;
 }
 .content {
-  height: 90%;
+  height: 87%;
   margin: 20px 20px;
   overflow: auto;
+}
+.todo-list {
+  height: 100%;
+  list-style-type: none;
+}
+
+.todo-list li {
+  height: 12%;
+  min-width: 0;
+  width: 100%;
+  box-shadow: 0px 5px 5px -6px;
+  margin-bottom: 16px;
+  float: left;
+  position: relative;
+}
+.todo-list li:hover {
+  background-color: rgba(149, 165, 165, 0.2);
 }
