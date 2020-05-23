@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Modal.css";
-import monthNames from "../utils/monthNames.json";
+
 import colorNames from "../utils/colorNames.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -14,8 +14,9 @@ export default class Modal extends Component {
     super();
     this.state = {
       dueDate: new Date(),
+      startDate: new Date(),
       title: "",
-      category: "",
+      category: "Others",
       showForm: false,
     };
   }
@@ -43,7 +44,7 @@ export default class Modal extends Component {
     this.setState({
       dueDate: date,
     });
-    console.log(this.state.dueDate);
+    // console.log(this.state.dueDate);
   };
   handleCategory = (type) => {
     this.setState({
@@ -57,12 +58,14 @@ export default class Modal extends Component {
 
     let todo = {
       title: this.state.title,
-      dueDate: `${this.state.dueDate.getDate()} ${
-        monthNames.months[this.state.dueDate.getMonth()]
-      }`,
+
+      dueDate: this.state.dueDate,
       category: this.state.category,
       color: color,
+      isChecked: false,
+      startDate: this.state.startDate,
     };
+
     //Adding the TODO to the main list
     this.props.addTodo(todo, this.state.category);
   };
@@ -128,7 +131,7 @@ export default class Modal extends Component {
                         style={{ color: "#495057" }}
                         selected={this.state.dueDate}
                         onChange={this.handleChange}
-                        dateFormat="dd MMMM,yyyy"
+                        dateFormat="dd MMM,yyyy"
                       />
                     </div>
                     <div

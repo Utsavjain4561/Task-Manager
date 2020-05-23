@@ -15,7 +15,9 @@ export default class Sidebar extends Component {
       showForm: false,
     };
   }
-
+  handleClickItem = (category) => {
+    this.props.showTodo(category);
+  };
   componentDidUpdate() {
     console.log("State changed to ", this.state.showForm);
   }
@@ -44,7 +46,13 @@ export default class Sidebar extends Component {
                 >
                   W
                 </div>
-                <span onClick={() => this.props.showTodo("Work")}>Work</span>
+                <span
+                  onClick={() => {
+                    this.props.showTodo("Work");
+                  }}
+                >
+                  Work
+                </span>
                 <span className="count">{this.props.countWork}</span>
               </div>
             </li>

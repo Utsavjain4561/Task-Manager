@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
 import "./App.css";
-import data from "./seed.json";
+// import data from "./seed.json";
 import "bootstrap/dist/css/bootstrap.css";
 export default class App extends Component {
   constructor() {
@@ -16,22 +16,22 @@ export default class App extends Component {
       othersTodos: [],
     };
   }
-  componentDidMount() {
-    this.setState({
-      todos: [
-        ...data.workTodos,
-        ...data.personalTodos,
-        ...data.shoppingTodos,
-        ...data.othersTodos,
-      ],
-      workTodos: data.workTodos,
-      personalTodos: data.personalTodos,
-      shoppingTodos: data.shoppingTodos,
-      othersTodos: data.othersTodos,
-    });
+  // componentDidMount() {
+  //   this.setState({
+  //     todos: [
+  //       ...data.workTodos,
+  //       ...data.personalTodos,
+  //       ...data.shoppingTodos,
+  //       ...data.othersTodos,
+  //     ],
+  //     workTodos: data.workTodos,
+  //     personalTodos: data.personalTodos,
+  //     shoppingTodos: data.shoppingTodos,
+  //     othersTodos: data.othersTodos,
+  //   });
 
-    console.log(data.workTodos);
-  }
+  //   console.log(data.workTodos);
+  // }
   handleTodos = (newTodo, category) => {
     this.setState((prevState) => ({
       todos: [...prevState.todos, newTodo],
