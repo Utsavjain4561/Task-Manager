@@ -58,7 +58,6 @@ export default class Modal extends Component {
 
     let todo = {
       title: this.state.title,
-
       dueDate: this.state.dueDate,
       category: this.state.category,
       color: color,
@@ -67,7 +66,20 @@ export default class Modal extends Component {
     };
 
     //Adding the TODO to the main list
-    this.props.addTodo(todo, this.state.category);
+    // add todo to the database
+    fetch("http://localhost:5000/todos/add", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    }).then((res) => {
+      if (res.status === 200) this.props.addTodo(todo, this.state.category);
+      else {
+        alert(JSON.stringify(res.statusText));
+      }
+    });
   };
   handleShowForm = () => {
     this.setState((prevState) => ({

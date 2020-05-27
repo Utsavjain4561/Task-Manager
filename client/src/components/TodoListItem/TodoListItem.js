@@ -17,11 +17,10 @@ export default class TodoListItem extends Component {
     return "badge-danger";
   };
   getProgress = () => {
-    let currentDate = new Date("2020-05-25"),
+    let currentDate = new Date(),
       dueDate = this.props.todo.dueDate,
       startDate = this.props.todo.startDate;
-    console.log("Current date ", currentDate.getTime());
-    console.log("Due date ", dueDate.getTime());
+
     if (this.props.todo.isChecked) return "Completed";
     else {
       if (currentDate.getTime() - startDate.getTime() < 86400000) return "New";
@@ -79,7 +78,7 @@ export default class TodoListItem extends Component {
               data-placement="bottom"
               title="Done"
               style={{ display: this.props.todo.isChecked ? "none" : "" }}
-              onClick={() => this.setState({ isChecked: true })}
+              onClick={() => this.setState({ isChecked: true })} // make the isChecked field of this Todo true in DB
               className="todo-complete"
             >
               <FontAwesomeIcon icon={faCheck} />
