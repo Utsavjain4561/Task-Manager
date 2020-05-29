@@ -6,7 +6,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <Navbar />
+        <Navbar sort={this.props.sort} />
         <div className="content">
           <ul className="todo-list">
             {this.props.todos.map((todo) => {
@@ -15,6 +15,7 @@ export default class Dashboard extends Component {
                   <TodoListItem
                     todo={todo}
                     deleteTodo={this.props.deleteTodo}
+                    checkTodo={this.props.checkTodo}
                   />
                 </li>
               );

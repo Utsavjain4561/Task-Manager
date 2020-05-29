@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./TodoListItem.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import monthNames from "../utils/monthNames.json";
 import {
@@ -16,6 +17,7 @@ export default class TodoListItem extends Component {
       isdeleted: false,
     };
   }
+
   getBadge = (progress) => {
     if (progress === "New") return "badge-primary";
     else if (progress === "In Progress") return "badge-warning";
@@ -34,6 +36,24 @@ export default class TodoListItem extends Component {
 
       return "In Progress";
     }
+  };
+  checkTodo = () => {
+    let id = this.props.todo._id,
+      checkedTodo = this.props.todo;
+    checkedTodo.isChecked = true;
+    fetch("http://localhost:5000/todos/check/" + id, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(checkedTodo),
+    }).then((res) => {
+      if (res.statusText === "OK") {
+        //update state of this list as checked
+        this.props.checkTodo(checkedTodo);
+      }
+    });
   };
   deleteTodo = () => {
     let id = this.props.todo._id;
@@ -83,21 +103,13 @@ export default class TodoListItem extends Component {
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>
-            <span
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Edit"
-              style={{ display: this.props.todo.isChecked ? "none" : "" }}
-              className="todo-edit"
-            >
-              <FontAwesomeIcon icon={faEdit} />
-            </span>
+
             <span
               data-toggle="tooltip"
               data-placement="bottom"
               title="Done"
               style={{ display: this.props.todo.isChecked ? "none" : "" }}
-              onClick={() => this.setState({ isChecked: true })} // make the isChecked field of this Todo true in DB
+              onClick={this.checkTodo} // make the isChecked field of this Todo true in DB
               className="todo-complete"
             >
               <FontAwesomeIcon icon={faCheck} />

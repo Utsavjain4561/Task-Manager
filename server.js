@@ -48,6 +48,18 @@ app.delete("/todos/:id", (req, res) => {
     }
   });
 });
+
+// EDIT route
+app.put("/todos/check/:id", (req, res) => {
+  req.body.isChecked = true;
+  Todos.findByIdAndUpdate(req.params.id, req.body, (err, todo) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send();
+    }
+  });
+});
 app.listen(PORT, () => {
   console.log("Server started");
 });

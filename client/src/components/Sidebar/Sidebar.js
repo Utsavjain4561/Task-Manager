@@ -119,7 +119,6 @@ export default class Sidebar extends Component {
               color: "white",
               outline: "none",
             }}
-            onClick={this.handleShowForm}
             data-toggle="modal"
             data-target="#add-task-modal"
           >

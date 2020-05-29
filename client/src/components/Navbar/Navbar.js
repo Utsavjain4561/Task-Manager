@@ -27,15 +27,24 @@ export default class Navbar extends Component {
                 Sort
               </span>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">
+                <span
+                  class="dropdown-item"
+                  onClick={() => this.props.sort("date")}
+                >
                   Date-Time
-                </a>
-                <a class="dropdown-item" href="#">
+                </span>
+                <span
+                  class="dropdown-item"
+                  onClick={() => this.props.sort("priority")}
+                >
                   Priority
-                </a>
-                <a class="dropdown-item" href="#">
+                </span>
+                <span
+                  class="dropdown-item"
+                  onClick={() => this.props.sort("label")}
+                >
                   Label
-                </a>
+                </span>
               </div>
             </div>
           </li>

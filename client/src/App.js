@@ -15,10 +15,39 @@ export default class App extends Component {
       othersTodos: [],
     };
   }
+  sort = (type) => {
+    //sort todos according to type
+    // and set state
+    let items = this.state.todos;
+    if (type === "priority") {
+      items.sort((a, b) => {
+        return a.dueDate - b.dueDate;
+      });
+    } else if (type === "date") {
+      items.sort((a, b) => {
+        return a.startDate - b.startDate;
+      });
+    } else if (type === "label") {
+      items.sort((a, b) => {
+        if (a.category < b.category) return -1;
+        if (a.category > b.category) return 1;
+        return 0;
+      });
+    }
+    this.setState({
+      todos: items,
+    });
+  };
+  checkTodo = (todo) => {
+    //update status of this todo in state
+    let index = this.state.todos.findIndex((item) => item._id === todo._id),
+      items = this.state.todos;
+    items[index].isChecked = true;
+    this.setState({
+      todos: items,
+    });
+  };
   deleteTodo = (todo) => {
-    // let oldTodos = [...this.state.todos];
-    // console.log(oldTodos);
-    // oldTodos =
     this.setState({
       todos: this.state.todos.filter((item) => item._id !== todo._id),
       workTodos: this.state.workTodos.filter((item) => item._id !== todo._id),
@@ -141,7 +170,12 @@ export default class App extends Component {
             />
           </div>
           <div className="dashboard col-2 col-md-10">
-            <Dashboard todos={this.state.todos} deleteTodo={this.deleteTodo} />
+            <Dashboard
+              todos={this.state.todos}
+              checkTodo={this.checkTodo}
+              deleteTodo={this.deleteTodo}
+              sort={this.sort}
+            />
           </div>
         </div>
       </div>

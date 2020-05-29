@@ -62,7 +62,7 @@ export default class Modal extends Component {
       category: this.state.category,
       color: color,
       isChecked: false,
-      startDate: this.state.startDate,
+      startDate: new Date(),
     };
 
     //Adding the TODO to the main list
@@ -110,7 +110,7 @@ export default class Modal extends Component {
           >
             <div className="modal-header">
               <h5 className="modal-title" id="modalLabel">
-                Add TODO
+                {this.props.showEditModal ? "Edit Todo" : "Add Todo"}
               </h5>
               <button
                 type="button"
