@@ -74,12 +74,18 @@ export default class Modal extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(todo),
-    }).then((res) => {
-      if (res.status === 200) this.props.addTodo(todo, this.state.category);
-      else {
-        alert(JSON.stringify(res.statusText));
-      }
-    });
+    })
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        else {
+          alert(JSON.stringify(res.statusText));
+        }
+      })
+      .then((data) => {
+        data.dueDate = new Date(data.dueDate);
+        data.startDate = new Date(data.startDate);
+        this.props.addTodo(data);
+      });
   };
   handleShowForm = () => {
     this.setState((prevState) => ({

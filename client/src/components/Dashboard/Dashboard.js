@@ -12,7 +12,10 @@ export default class Dashboard extends Component {
             {this.props.todos.map((todo) => {
               return (
                 <li>
-                  <TodoListItem todo={todo} />
+                  <TodoListItem
+                    todo={todo}
+                    deleteTodo={this.props.deleteTodo}
+                  />
                 </li>
               );
             })}

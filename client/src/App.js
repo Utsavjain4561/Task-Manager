@@ -15,6 +15,24 @@ export default class App extends Component {
       othersTodos: [],
     };
   }
+  deleteTodo = (todo) => {
+    // let oldTodos = [...this.state.todos];
+    // console.log(oldTodos);
+    // oldTodos =
+    this.setState({
+      todos: this.state.todos.filter((item) => item._id !== todo._id),
+      workTodos: this.state.workTodos.filter((item) => item._id !== todo._id),
+      personalTodos: this.state.personalTodos.filter(
+        (item) => item._id !== todo._id
+      ),
+      shoppingTodos: this.state.shoppingTodos.filter(
+        (item) => item._id !== todo._id
+      ),
+      othersTodos: this.state.othersTodos.filter(
+        (item) => item._id !== todo._id
+      ),
+    });
+  };
   getTodos = () => {
     return fetch("http://localhost:5000/todos", {
       method: "GET",
@@ -25,71 +43,59 @@ export default class App extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        let work = [],
-          personal = [],
-          shopping = [],
-          others = [];
         data.forEach((todo) => {
           todo.dueDate = new Date(todo.dueDate);
           todo.startDate = new Date(todo.startDate);
 
-          if (todo.category === "Work") {
-            work.push(todo);
-          } else if (todo.category === "Personal") {
-            personal.push(todo);
-          } else if (todo.category === "Shopping") {
-            shopping.push(todo);
-          } else {
-            others.push(todo);
-          }
           this.setState((prevState) => ({
             todos: [...prevState.todos, todo],
+            workTodos:
+              todo.category === "Work"
+                ? [...prevState.workTodos, todo]
+                : [...prevState.workTodos],
+            personalTodos:
+              todo.category === "Personal"
+                ? [...prevState.personalTodos, todo]
+                : [...prevState.personalTodos],
+            shoppingTodos:
+              todo.category === "Shopping"
+                ? [...prevState.shoppingTodos, todo]
+                : [...prevState.shoppingTodos],
+            othersTodos:
+              todo.category === "Others"
+                ? [...prevState.othersTodos, todo]
+                : [...prevState.othersTodos],
           }));
-          if (work) {
-            this.setState((prevState) => ({
-              workTodos: [...prevState.workTodos, work],
-            }));
-          } else if (personal) {
-            this.setState((prevState) => ({
-              personalTodos: [...prevState.personalTodos, personal],
-            }));
-          } else if (shopping) {
-            this.setState((prevState) => ({
-              shoppingTodos: [...prevState.shoppingTodos, shopping],
-            }));
-          } else if (others) {
-            this.setState((prevState) => ({
-              othersTodos: [...prevState.othersTodos, others],
-            }));
-          }
         });
       });
   };
+
   async componentDidMount() {
+    // console.log("mounting again");
     await this.getTodos();
   }
 
-  handleTodos = (newTodo, category) => {
+  handleTodos = (todo) => {
     this.setState((prevState) => ({
-      todos: [...prevState.todos, newTodo],
+      count: prevState.count + 1,
+      todos: [...prevState.todos, todo],
+      workTodos:
+        todo.category === "Work"
+          ? [...prevState.workTodos, todo]
+          : [...prevState.workTodos],
+      personalTodos:
+        todo.category === "Personal"
+          ? [...prevState.personalTodos, todo]
+          : [...prevState.personalTodos],
+      shoppingTodos:
+        todo.category === "Shopping"
+          ? [...prevState.shoppingTodos, todo]
+          : [...prevState.shoppingTodos],
+      othersTodos:
+        todo.category === "Others"
+          ? [...prevState.othersTodos, todo]
+          : [...prevState.othersTodos],
     }));
-    if (category === "Work") {
-      this.setState((prevState) => ({
-        workTodos: [...prevState.workTodos, newTodo],
-      }));
-    } else if (category === "Personal") {
-      this.setState((prevState) => ({
-        personalTodos: [...prevState.personalTodos, newTodo],
-      }));
-    } else if (category === "Shopping") {
-      this.setState((prevState) => ({
-        shoppingTodos: [...prevState.shoppingTodos, newTodo],
-      }));
-    } else {
-      this.setState((prevState) => ({
-        othersTodos: [...prevState.othersTodos, newTodo],
-      }));
-    }
   };
   showTodo = (category) => {
     if (category === "Work") {
@@ -135,7 +141,7 @@ export default class App extends Component {
             />
           </div>
           <div className="dashboard col-2 col-md-10">
-            <Dashboard todos={this.state.todos} />
+            <Dashboard todos={this.state.todos} deleteTodo={this.deleteTodo} />
           </div>
         </div>
       </div>

@@ -10,6 +10,12 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 export default class TodoListItem extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isdeleted: false,
+    };
+  }
   getBadge = (progress) => {
     if (progress === "New") return "badge-primary";
     else if (progress === "In Progress") return "badge-warning";
@@ -23,10 +29,22 @@ export default class TodoListItem extends Component {
 
     if (this.props.todo.isChecked) return "Completed";
     else {
-      if (currentDate.getTime() - startDate.getTime() < 86400000) return "New";
-      else if (currentDate.getTime() > dueDate.getTime()) return "Pending";
+      if (currentDate.getTime() > dueDate.getTime()) return "Pending";
+      if (currentDate.getTime() - startDate.getTime() < 3600000) return "New";
+
       return "In Progress";
     }
+  };
+  deleteTodo = () => {
+    let id = this.props.todo._id;
+    fetch("http://localhost:5000/todos/" + id, {
+      method: "DELETE",
+    }).then((res) => {
+      if (res.statusText === "OK") {
+        console.log("deleted");
+        this.props.deleteTodo(this.props.todo);
+      }
+    });
   };
   render() {
     return (
@@ -61,6 +79,7 @@ export default class TodoListItem extends Component {
               data-placement="bottom"
               title="Delete"
               className="todo-delete"
+              onClick={this.deleteTodo}
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>

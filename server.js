@@ -11,6 +11,7 @@ mongoose.connect("mongodb://localhost:27017/stackhash", {
   useUnifiedTopology: true,
 });
 
+// Get all todos
 app.get("/todos", (req, res) => {
   // get all todos from DB
   Todos.find({}, (err, todo) => {
@@ -21,6 +22,8 @@ app.get("/todos", (req, res) => {
     }
   });
 });
+
+//Create Route
 app.post("/todos/add", (req, res) => {
   // Create a new todo
   // Add the todo to databse
@@ -29,11 +32,22 @@ app.post("/todos/add", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.status(200).send();
+      res.status(200).send(todo);
     }
   });
 });
 
+//Delete route
+app.delete("/todos/:id", (req, res) => {
+  console.log("Delete ", req.params.id);
+  Todos.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).send();
+    }
+  });
+});
 app.listen(PORT, () => {
   console.log("Server started");
 });
