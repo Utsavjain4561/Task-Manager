@@ -106,7 +106,6 @@ export default class App extends Component {
 
   handleTodos = (todo) => {
     this.setState((prevState) => ({
-      count: prevState.count + 1,
       todos: [...prevState.todos, todo],
       workTodos:
         todo.category === "Work"
@@ -144,17 +143,28 @@ export default class App extends Component {
         todos: this.state.othersTodos,
       });
     } else if (category === "All") {
+      let items = [
+        ...this.state.workTodos,
+        ...this.state.personalTodos,
+        ...this.state.shoppingTodos,
+        ...this.state.othersTodos,
+      ];
+      items.sort((a, b) => {
+        return a.startDate - b.startDate;
+      });
       this.setState({
-        todos: [
-          ...this.state.workTodos,
-          ...this.state.personalTodos,
-          ...this.state.shoppingTodos,
-          ...this.state.othersTodos,
-        ],
+        todos: items,
       });
     }
   };
-
+  showSearchTodo = (todo) => {
+    let searched = [];
+    searched.push(todo);
+    console.log("searched", searched);
+    this.setState({
+      todos: searched,
+    });
+  };
   render() {
     return (
       <div className="container-fluid fill">
@@ -173,6 +183,8 @@ export default class App extends Component {
             <Dashboard
               todos={this.state.todos}
               checkTodo={this.checkTodo}
+              showSearchTodo={this.showSearchTodo}
+              showTodo={this.showTodo}
               deleteTodo={this.deleteTodo}
               sort={this.sort}
             />

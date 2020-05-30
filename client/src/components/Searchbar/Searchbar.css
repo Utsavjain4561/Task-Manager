@@ -1,0 +1,31 @@
+.search-bar {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 30px;
+  padding-left: 16px;
+  width: 250px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-bar ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  background: white;
+  color: black;
+}
+.search-bar ul li {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+.search-bar ul li span {
+  padding-left: 6px;
+}
+.search-bar ul li:hover {
+  cursor: pointer;
+  background: rgba(149, 165, 165, 0.2);
+}

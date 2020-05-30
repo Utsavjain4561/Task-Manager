@@ -3,8 +3,7 @@ import "./Navbar.css";
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Searchbar from "../Searchbar/Searchbar";
 export default class Navbar extends Component {
   render() {
     return (
@@ -49,23 +48,11 @@ export default class Navbar extends Component {
             </div>
           </li>
         </ul>
-        <div className="search-bar">
-          <form onClick={(event) => event.preventDefault()}>
-            <input
-              type="input"
-              onChange={(event) => console.log(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  console.log(event.target.value);
-                }
-              }}
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-          <FontAwesomeIcon icon={faSearch} />
-        </div>
+        <Searchbar
+          showSearchTodo={this.props.showSearchTodo}
+          showTodo={this.props.showTodo}
+          titles={this.props.todos}
+        />
       </div>
     );
   }

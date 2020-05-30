@@ -6,7 +6,12 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <Navbar sort={this.props.sort} />
+        <Navbar
+          sort={this.props.sort}
+          todos={this.props.todos}
+          showSearchTodo={this.props.showSearchTodo}
+          showTodo={this.props.showTodo}
+        />
         <div className="content">
           <ul className="todo-list">
             {this.props.todos.map((todo) => {
