@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
+      userId: "",
       todos: [],
 
       workTodos: [],
@@ -15,6 +18,7 @@ export default class App extends Component {
       othersTodos: [],
     };
   }
+
   sort = (type) => {
     //sort todos according to type
     // and set state
@@ -62,8 +66,8 @@ export default class App extends Component {
       ),
     });
   };
-  getTodos = () => {
-    return fetch("http://localhost:5000/todos", {
+  getTodos = (userId) => {
+    return fetch("http://localhost:5000/todos/" + userId, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -100,8 +104,16 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
-    // console.log("mounting again");
-    await this.getTodos();
+    console.log("mounting again");
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("user_id");
+    await this.getTodos(userId);
+    this.setState({
+      userId: userId,
+    });
+  }
+  componentWillUnmount() {
+    this.props.signOutUser();
   }
 
   handleTodos = (todo) => {
@@ -173,6 +185,8 @@ export default class App extends Component {
             <Sidebar
               addTodo={this.handleTodos}
               showTodo={this.showTodo}
+              userId={this.state.userId}
+              signOutUser={this.props.signOutUser}
               countWork={this.state.workTodos.length}
               countPersonal={this.state.personalTodos.length}
               countShopping={this.state.shoppingTodos.length}
@@ -182,6 +196,7 @@ export default class App extends Component {
           <div className="dashboard col-2 col-md-10">
             <Dashboard
               todos={this.state.todos}
+              userId={this.state.userId}
               checkTodo={this.checkTodo}
               showSearchTodo={this.showSearchTodo}
               showTodo={this.showTodo}

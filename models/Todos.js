@@ -6,5 +6,9 @@ const todoSchema = new mongoose.Schema({
   category: String,
   color: String,
   isChecked: Boolean,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 module.exports = mongoose.model("Todo", todoSchema);

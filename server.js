@@ -1,38 +1,109 @@
 const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
+  passport = require("passport"),
+  cors = require("cors"),
+  LocalStrategy = require("passport-local"),
+  expressSession = require("express-session"),
   Todos = require("./models/Todos"),
+  User = require("./models/User"),
   app = express(),
   PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
+//app.use(cors());
 mongoose.connect("mongodb://localhost:27017/stackhash", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 });
+// Configure Passport
+app.use(
+  expressSession({
+    secret: "Life with a plan is a happy life",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-// Get all todos
-app.get("/todos", (req, res) => {
-  // get all todos from DB
-  Todos.find({}, (err, todo) => {
+//Register route
+app.post("/register", (req, res) => {
+  var user = new User({ username: req.body.username }),
+    password = req.body.password;
+
+  User.register(user, password, (err, newUser) => {
     if (err) {
       console.log(err);
     } else {
-      res.send(todo);
+      passport.authenticate("local")(req, res, () => {
+        console.log("User registered");
+
+        res.status(200).json({ userId: newUser._id });
+      });
+    }
+  });
+});
+// Login route
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login/failed",
+  }),
+  (req, res) => {
+    User.findOne({ username: req.user.username }, (err, user) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json({ userId: user._id });
+      }
+    });
+  }
+);
+app.get("/login/failed", (req, res) => {
+  console.log("failed");
+});
+
+// Get all todos
+app.get("/todos/:id", (req, res) => {
+  // get all todos from DB
+  User.findOne({ _id: req.params.id }, (err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      Todos.find({ userId: req.params.id }, (err, todos) => {
+        if (err) console.log(err);
+        else {
+          res.send(todos);
+        }
+      });
     }
   });
 });
 
 //Create Route
-app.post("/todos/add", (req, res) => {
+app.post("/todos/add/:id", (req, res) => {
   // Create a new todo
   // Add the todo to databse
-
-  Todos.create(req.body, (err, todo) => {
+  console.log(req.body);
+  User.findOne({ _id: req.params.id }, (err, user) => {
     if (err) {
       console.log(err);
     } else {
-      res.status(200).send(todo);
+      req.body.userId = req.params.id;
+      Todos.create(req.body, (err, todo) => {
+        if (err) {
+          console.log(err);
+        } else {
+          user.todos.push(todo);
+          user.save();
+          res.status(200).send(todo);
+        }
+      });
     }
   });
 });

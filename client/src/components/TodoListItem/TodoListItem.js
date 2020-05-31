@@ -6,7 +6,6 @@ import monthNames from "../utils/monthNames.json";
 import {
   faClock,
   faBars,
-  faEdit,
   faCheck,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";

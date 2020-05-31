@@ -1,0 +1,15 @@
+.card {
+  float: right;
+  height: 30rem;
+  width: 20rem;
+  margin-top: 8%;
+  margin-right: 10%;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.75);
+}
+.card-body form {
+  width: 100%;
+}

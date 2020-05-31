@@ -14,7 +14,7 @@ export default class Navbar extends Component {
             <span style={{ fontSize: "16px" }}>Utsav Jain</span>
           </li>
           <li className="nav-item">
-            <div class="dropdown">
+            <div className="dropdown">
               <span
                 className="dropdown-toggle"
                 type="button"
@@ -25,21 +25,24 @@ export default class Navbar extends Component {
               >
                 Sort
               </span>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
                 <span
-                  class="dropdown-item"
+                  className="dropdown-item"
                   onClick={() => this.props.sort("date")}
                 >
                   Date-Time
                 </span>
                 <span
-                  class="dropdown-item"
+                  className="dropdown-item"
                   onClick={() => this.props.sort("priority")}
                 >
                   Priority
                 </span>
                 <span
-                  class="dropdown-item"
+                  className="dropdown-item"
                   onClick={() => this.props.sort("label")}
                 >
                   Label

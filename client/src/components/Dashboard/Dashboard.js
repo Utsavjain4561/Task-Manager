@@ -16,7 +16,7 @@ export default class Dashboard extends Component {
           <ul className="todo-list">
             {this.props.todos.map((todo) => {
               return (
-                <li>
+                <li key={todo._id}>
                   <TodoListItem
                     todo={todo}
                     deleteTodo={this.props.deleteTodo}

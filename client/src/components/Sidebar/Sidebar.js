@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import Modal from "../Modal/Modal";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -101,7 +102,7 @@ export default class Sidebar extends Component {
             <li>
               <div className="menu-list">
                 <FontAwesomeIcon icon={faSignOutAlt} />
-                <span>Sign Out</span>
+                <span onClick={() => this.props.signOutUser()}>Sign Out</span>
               </div>
             </li>
           </ul>
@@ -125,7 +126,7 @@ export default class Sidebar extends Component {
             <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
-        <Modal addTodo={this.props.addTodo} />
+        <Modal userId={this.props.userId} addTodo={this.props.addTodo} />
       </div>
     );
   }
