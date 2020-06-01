@@ -10,31 +10,27 @@ export default class Navbar extends Component {
     super();
     this.state = {
       name: "",
+      color: "",
     };
   }
   componentDidMount() {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
-    this.setState({
-      name: name,
-    });
-  }
-  getRandomColor = () => {
     let colors = colorNames.colors,
       l = colors.length,
-      r = colors[Math.floor(Math.random() * l)];
+      color = colors[Math.floor(Math.random() * l)];
+    this.setState({
+      name: name,
+      color: color,
+    });
+  }
 
-    return r;
-  };
   render() {
     return (
       <div className="navbar navbar-expand-lg">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <div
-              style={{ background: this.getRandomColor() }}
-              className="user-icon"
-            >
+            <div style={{ background: this.state.color }} className="user-icon">
               {this.state.name[0]}
             </div>
             <span style={{ fontSize: "16px" }}>{this.state.name}</span>

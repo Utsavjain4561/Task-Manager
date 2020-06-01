@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import Modal from "../Modal/Modal";
-
+import Ripples from "react-ripples";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -113,18 +113,20 @@ export default class Sidebar extends Component {
           data-placement="top"
           title="Add TODO"
         >
-          <button
-            style={{
-              background: "none",
-              border: "none",
-              color: "white",
-              outline: "none",
-            }}
-            data-toggle="modal"
-            data-target="#add-task-modal"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
+          <Ripples>
+            <button
+              style={{
+                background: "none",
+                border: "none",
+                color: "white",
+                outline: "none",
+              }}
+              data-toggle="modal"
+              data-target="#add-task-modal"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          </Ripples>
         </div>
         <Modal userId={this.props.userId} addTodo={this.props.addTodo} />
       </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Register.css";
+import Ripples from "react-ripples";
 export default class Login extends Component {
   constructor() {
     super();
@@ -117,9 +118,11 @@ export default class Login extends Component {
             </span>
           </form>
         </div>
-        <button onClick={this.handleFormSubmit} className="btn btn-primary">
-          Sign Up
-        </button>
+        <Ripples>
+          <button onClick={this.handleFormSubmit} className="btn btn-primary">
+            Sign Up
+          </button>
+        </Ripples>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar/Navbar";
 import "./Dashboard.css";
+
 import TodoListItem from "../TodoListItem/TodoListItem";
 export default class Dashboard extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class Dashboard extends Component {
           showSearchTodo={this.props.showSearchTodo}
           showTodo={this.props.showTodo}
         />
-        <div className="content">
+        <div className="content" id="data">
           <ul className="todo-list">
             {this.props.todos.map((todo) => {
               return (

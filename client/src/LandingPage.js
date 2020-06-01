@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
 import $ from "jquery";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -24,13 +25,14 @@ export default class LandingPage extends Component {
     });
   };
   signOutUser = () => {
+    window.location = "/";
     console.log("sign out clicked");
-    $(".heading").css("display", "block");
-    $(".footer").css("display", "block");
+
     this.setState({
       isLoggedIn: false,
     });
   };
+
   render() {
     return (
       <Router>
@@ -43,10 +45,11 @@ export default class LandingPage extends Component {
         <Route path="/user">
           <App signOutUser={this.signOutUser} />
         </Route>
+
         {this.state.isLoggedIn ? (
-          <Redirect to={this.state.redirectUrl}></Redirect>
+          <Redirect push to={this.state.redirectUrl}></Redirect>
         ) : (
-          <Redirect to="/"></Redirect>
+          ""
         )}
         <div className="heading">
           <div className="title">

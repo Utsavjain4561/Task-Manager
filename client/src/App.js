@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
+import { toast, Zoom, Flip } from "react-toastify";
+import $ from "jquery";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -11,7 +14,8 @@ export default class App extends Component {
       userId: "",
       name: "",
       todos: [],
-
+      pending: 0,
+      inprogress: 0,
       workTodos: [],
       personalTodos: [],
       shoppingTodos: [],
@@ -19,10 +23,30 @@ export default class App extends Component {
     };
   }
 
+  getProgress = (todo) => {
+    let currentDate = new Date(),
+      dueDate = todo.dueDate,
+      startDate = todo.startDate;
+
+    if (todo.isChecked) return "Completed";
+    else {
+      if (currentDate.getTime() > dueDate.getTime()) return "Pending";
+      if (currentDate.getTime() - startDate.getTime() < 3600000) return "New";
+
+      return "In Progress";
+    }
+  };
   sort = (type) => {
     //sort todos according to type
     // and set state
     let items = this.state.todos;
+    let priority = {
+      Pending: 0,
+      "In Progress": 1,
+      New: 2,
+      Completed: 3,
+    };
+
     if (type === "priority") {
       items.sort((a, b) => {
         return a.dueDate - b.dueDate;
@@ -33,9 +57,7 @@ export default class App extends Component {
       });
     } else if (type === "label") {
       items.sort((a, b) => {
-        if (a.category < b.category) return -1;
-        if (a.category > b.category) return 1;
-        return 0;
+        return priority[this.getProgress(a)] - priority[this.getProgress(b)];
       });
     }
     this.setState({
@@ -49,6 +71,12 @@ export default class App extends Component {
     items[index].isChecked = true;
     this.setState({
       todos: items,
+    });
+    toast.success("Task Completed", {
+      position: toast.POSITION.BOTTOM_LEFT,
+      hideProgressBar: true,
+      autoClose: 2000,
+      transition: Flip,
     });
   };
   deleteTodo = (todo) => {
@@ -64,6 +92,12 @@ export default class App extends Component {
       othersTodos: this.state.othersTodos.filter(
         (item) => item._id !== todo._id
       ),
+    });
+    toast.dark("Todo deleted", {
+      position: toast.POSITION.BOTTOM_LEFT,
+      hideProgressBar: true,
+      autoClose: 2000,
+      transition: Flip,
     });
   };
   getTodos = (userId) => {
@@ -104,15 +138,47 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
-    console.log("mounting again");
+    toast.configure();
+    $(".heading").css("display", "none");
+    $(".footer").css("display", "none");
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get("user_id");
-
+    toast.dark("Logged in sucessfully !", {
+      position: toast.POSITION.BOTTOM_LEFT,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
     await this.getTodos(userId);
     this.setState({
       userId: userId,
     });
+    this.state.todos.forEach((todo) => {
+      if (this.getProgress(todo) === "Pending") {
+        this.setState((prevState) => ({
+          pending: prevState.pending + 1,
+        }));
+      } else if (this.getProgress(todo) === "In Progress") {
+        this.setState((prevState) => ({
+          inprogress: prevState.inprogress + 1,
+        }));
+      }
+    });
+    if (this.state.pending > 0) {
+      setTimeout(() => {
+        toast.error(`${this.state.pending} tasks pending`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }, 3000);
+    }
+    if (this.state.inprogress > 0) {
+      setTimeout(() => {
+        toast.info(`${this.state.inprogress} tasks in progress`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }, 4000);
+    }
   }
+
   componentWillUnmount() {
     this.props.signOutUser();
   }
@@ -137,6 +203,10 @@ export default class App extends Component {
           ? [...prevState.othersTodos, todo]
           : [...prevState.othersTodos],
     }));
+
+    // scroll to bottom when new todo is added
+    var elem = document.getElementById("data");
+    elem.scrollTop = elem.scrollHeight;
   };
   showTodo = (category) => {
     if (category === "Work") {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Login.css";
+import Ripples from "react-ripples";
 import axios from "axios";
 import { Link } from "react-router-dom";
 export default class Login extends Component {
@@ -71,9 +72,11 @@ export default class Login extends Component {
             </span>
           </form>
         </div>
-        <button onClick={this.checkUser} className="btn btn-primary">
-          Login
-        </button>
+        <Ripples>
+          <button onClick={this.checkUser} className="btn btn-primary">
+            Login
+          </button>
+        </Ripples>
       </div>
     );
   }

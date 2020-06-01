@@ -61,10 +61,12 @@ export default class TodoListItem extends Component {
     }).then((res) => {
       if (res.statusText === "OK") {
         console.log("deleted");
+
         this.props.deleteTodo(this.props.todo);
       }
     });
   };
+
   render() {
     return (
       <div className="todo-item">
@@ -100,7 +102,7 @@ export default class TodoListItem extends Component {
               className="todo-delete"
               onClick={this.deleteTodo}
             >
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <FontAwesomeIcon id="trash-icon" icon={faTrashAlt} />
             </span>
 
             <span
