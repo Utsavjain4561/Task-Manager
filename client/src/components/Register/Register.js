@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import "./Register.css";
 export default class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
+      username: "",
       password: "",
       confirmPassword: "",
     };
   }
+  handleUsernameChange = (e) => {
+    this.setState({
+      username: e.target.value,
+    });
+  };
   handleEmailChange = (e) => {
     let value = e.target.value;
     this.setState({
@@ -41,6 +48,7 @@ export default class Login extends Component {
         body: JSON.stringify({
           username: this.state.email,
           password: this.state.password,
+          name: this.state.username,
         }),
       })
         .then((res) => {
@@ -49,7 +57,8 @@ export default class Login extends Component {
           }
         })
         .then((data) => {
-          this.props.loginUser(data.userId);
+          console.log(data);
+          this.props.loginUser(data.userId, data.name);
         });
     } else {
       // Show flash about error
@@ -61,7 +70,17 @@ export default class Login extends Component {
       <div className="card" id="login">
         <div className="card-header">Sign Up</div>
         <div className="card-body">
-          <form>
+          <form id="register">
+            <div className="form-group">
+              <label className="col-form-label">Name</label>
+              <input
+                className="form-control"
+                type="text"
+                value={this.state.username}
+                onChange={this.handleUsernameChange}
+                placeholder="Enter Name"
+              />
+            </div>
             <div className="form-group">
               <label className="col-form-label">Email</label>
               <input
@@ -93,7 +112,7 @@ export default class Login extends Component {
                 placeholder="Enter Password"
               />
             </div>
-            <span>
+            <span id="note">
               Already a member ?<Link to="/"> Login</Link>
             </span>
           </form>

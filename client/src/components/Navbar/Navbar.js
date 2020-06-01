@@ -4,14 +4,40 @@ import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import Searchbar from "../Searchbar/Searchbar";
+import colorNames from "../utils/colorNames.json";
 export default class Navbar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: "",
+    };
+  }
+  componentDidMount() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+    this.setState({
+      name: name,
+    });
+  }
+  getRandomColor = () => {
+    let colors = colorNames.colors,
+      l = colors.length,
+      r = colors[Math.floor(Math.random() * l)];
+
+    return r;
+  };
   render() {
     return (
       <div className="navbar navbar-expand-lg">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <div className="user-icon">U</div>
-            <span style={{ fontSize: "16px" }}>Utsav Jain</span>
+            <div
+              style={{ background: this.getRandomColor() }}
+              className="user-icon"
+            >
+              {this.state.name[0]}
+            </div>
+            <span style={{ fontSize: "16px" }}>{this.state.name}</span>
           </li>
           <li className="nav-item">
             <div className="dropdown">

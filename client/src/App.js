@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -10,6 +9,7 @@ export default class App extends Component {
     super();
     this.state = {
       userId: "",
+      name: "",
       todos: [],
 
       workTodos: [],
@@ -107,6 +107,7 @@ export default class App extends Component {
     console.log("mounting again");
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get("user_id");
+
     await this.getTodos(userId);
     this.setState({
       userId: userId,

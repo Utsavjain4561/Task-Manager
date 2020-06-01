@@ -29,7 +29,7 @@ export default class Sidebar extends Component {
           <span className="header-icon">
             <FontAwesomeIcon icon={faBars} />
           </span>
-          <span className="header-title">Task Manager</span>
+          <span className="header-title">Chores</span>
         </div>
         <div className="side-body">
           <ul>

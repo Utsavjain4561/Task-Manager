@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { withRouter } from "react-router";
-
+import $ from "jquery";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import "./LandingPage.css";
@@ -16,14 +15,18 @@ export default class LandingPage extends Component {
       redirectUrl: "/user",
     };
   }
-  loginUser = (userid) => {
+  loginUser = (userid, name) => {
+    $(".heading").css("display", "none");
+    $(".footer").css("display", "none");
     this.setState({
       isLoggedIn: true,
-      redirectUrl: "/user?user_id=" + userid,
+      redirectUrl: "/user?user_id=" + userid + "&name=" + name,
     });
   };
   signOutUser = () => {
     console.log("sign out clicked");
+    $(".heading").css("display", "block");
+    $(".footer").css("display", "block");
     this.setState({
       isLoggedIn: false,
     });
@@ -45,6 +48,15 @@ export default class LandingPage extends Component {
         ) : (
           <Redirect to="/"></Redirect>
         )}
+        <div className="heading">
+          <div className="title">
+            <h1>Chores</h1>
+            <p>Make,Track and complete your tasks !!</p>
+          </div>
+
+          <div className="thumbnail"></div>
+        </div>
+        <div className="footer"></div>
       </Router>
     );
   }

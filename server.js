@@ -33,8 +33,10 @@ passport.deserializeUser(User.deserializeUser());
 
 //Register route
 app.post("/register", (req, res) => {
+  console.log(req.body.name);
   var user = new User({ username: req.body.username }),
-    password = req.body.password;
+    password = req.body.password,
+    name = req.body.name;
 
   User.register(user, password, (err, newUser) => {
     if (err) {
@@ -42,8 +44,10 @@ app.post("/register", (req, res) => {
     } else {
       passport.authenticate("local")(req, res, () => {
         console.log("User registered");
-
-        res.status(200).json({ userId: newUser._id });
+        User.findByIdAndUpdate(newUser._id, { name: name }, (err, user) => {
+          console.log("Updated user");
+          res.status(200).json({ userId: newUser._id, name: name });
+        });
       });
     }
   });
@@ -59,7 +63,7 @@ app.post(
       if (err) {
         console.log(err);
       } else {
-        res.json({ userId: user._id });
+        res.json({ userId: user._id, name: user.name });
       }
     });
   }

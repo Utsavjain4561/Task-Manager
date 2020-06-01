@@ -1,5 +1,6 @@
 .card {
   float: right;
+
   height: 30rem;
   width: 20rem;
   margin-top: 8%;
@@ -9,6 +10,12 @@
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;
   box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.75);
+}
+.card-header {
+  margin: 0;
+  background: rgb(26, 45, 52);
+  color: white;
+  font-weight: 500;
 }
 .card-body form {
   width: 100%;

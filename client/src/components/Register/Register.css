@@ -13,3 +13,9 @@
 .card-body form {
   width: 100%;
 }
+.form-group{
+  margin-bottom: 0.4rem;
+}
+form span {
+  font-size: 12px;
+}

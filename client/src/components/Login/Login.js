@@ -38,7 +38,7 @@ export default class Login extends Component {
           },
         }
       )
-      .then((res) => this.props.loginUser(res.data.userId));
+      .then((res) => this.props.loginUser(res.data.userId, res.data.name));
   };
   render() {
     return (

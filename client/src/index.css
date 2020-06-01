@@ -6,8 +6,7 @@ body {
 body {
   margin: 0;
   box-shadow: inset -10px 10px 10px 0 rgba(0, 0, 0, 0.2);
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
-    url(https://www.lefthudson.com/wp-content/uploads/2019/11/material-wallpapers-hd-luxury-my-material-vip-wallpaper-of-the-day-of-material-wallpapers-hd.jpg);
+  background: rgb(252, 252, 252);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
