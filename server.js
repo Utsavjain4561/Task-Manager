@@ -2,7 +2,11 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
   passport = require("passport"),
+  path = require("path"),
   cors = require("cors"),
+  nodemailer = require("nodemailer"),
+  hbs = require("nodemailer-express-handlebars"),
+  cron = require("node-cron"),
   LocalStrategy = require("passport-local"),
   expressSession = require("express-session"),
   Todos = require("./models/Todos"),
@@ -17,6 +21,14 @@ mongoose.connect("mongodb://localhost:27017/stackhash", {
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "faketaxiforyou@gmail.com",
+    pass: "suddendeath123@",
+  },
+});
+
 // Configure Passport
 app.use(
   expressSession({
@@ -34,24 +46,87 @@ passport.deserializeUser(User.deserializeUser());
 //Register route
 app.post("/register", (req, res) => {
   console.log(req.body.name);
-  var user = new User({ username: req.body.username }),
+  var user = new User({
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+    }),
     password = req.body.password,
     name = req.body.name;
 
   User.register(user, password, (err, newUser) => {
     if (err) {
       console.log(err);
+      res.status(400).json(err);
     } else {
       passport.authenticate("local")(req, res, () => {
         console.log("User registered");
         User.findByIdAndUpdate(newUser._id, { name: name }, (err, user) => {
           console.log("Updated user");
+
           res.status(200).json({ userId: newUser._id, name: name });
         });
       });
     }
   });
 });
+//Check progress
+function getProgress(todo) {
+  let currentDate = new Date(),
+    dueDate = todo.dueDate,
+    startDate = todo.startDate;
+
+  if (todo.isChecked) return "Completed";
+  else {
+    if (currentDate.getTime() > dueDate.getTime()) return "Pending";
+    if (currentDate.getTime() - startDate.getTime() < 3600000) return "New";
+
+    return "In Progress";
+  }
+}
+//Pending tasks
+function getPendingTasks(user) {
+  console.log("User is", user);
+  let pending = [];
+  Todos.find({ userId: user._id }, (err, todos) => {
+    if (err) {
+      console.log(err);
+    } else {
+      todos.forEach((todo) => {
+        if (getProgress(todo) === "Pending") {
+          pending.push(todo);
+        }
+      });
+
+      let mailOptions = {
+        from: "faketaxiforyou@gmail.com",
+        to: user.username,
+        subject: "Chores: Complete your pending tasks",
+        text: "Hello",
+      };
+      cron.schedule(
+        "59 23 * * *",
+        () => {
+          transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Email sendt: ", +info.response);
+            }
+          });
+        },
+        {
+          scheduled: true,
+          timezone: "Asia/Kolkata",
+        }
+      );
+    }
+  });
+}
+//Mail user
+function sendEmail(user) {
+  getPendingTasks(user);
+}
 // Login route
 app.post(
   "/login",
@@ -63,6 +138,7 @@ app.post(
       if (err) {
         console.log(err);
       } else {
+        sendEmail(user);
         res.json({ userId: user._id, name: user.name });
       }
     });

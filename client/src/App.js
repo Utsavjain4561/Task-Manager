@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
-import { toast, Zoom, Flip } from "react-toastify";
+import { toast, Flip } from "react-toastify";
 import $ from "jquery";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";

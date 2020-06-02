@@ -53,6 +53,7 @@ export default class Login extends Component {
         }),
       })
         .then((res) => {
+          console.log(res);
           if (res.statusText === "OK") {
             return res.json();
           }
