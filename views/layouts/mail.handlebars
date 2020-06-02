@@ -1,0 +1,29 @@
+<div class="container" style="margin:25px 25px,color:black">
+  <div class="jumbotron">
+    <h1>Chores of {{username}}</h1>
+    <p>You have many pending tasks to complete .Visit your tasks listed below and so complte them
+      before due date
+    </p>
+  </div>
+  <div style="width: 80rem; height: 80rem;margin:auto">
+    <div style="
+          width: 70em;
+          height: 40em;
+        
+          background-size: cover;
+          background-image: url(https://image.freepik.com/free-vector/organizing-projects-concept-illustration_114360-542.jpg);
+        "></div>
+    <div id="pending-list" style="margin: 25px 25px;">
+      <ul style="font-size: 18px;padding:25px 25px">
+        {{#each pending}}
+        <div class="list-item">
+          <li>
+            {{this}}
+          </li>
+        </div>
+        {{/each}}
+      </ul>
+    </div>
+    <span style="margin-left:50px;font-size:14px"><a href={{redirect}}>Click here</a> to track your pending tasks</span>
+  </div>
+</div>

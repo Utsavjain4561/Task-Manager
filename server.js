@@ -14,6 +14,9 @@ const express = require("express"),
   app = express(),
   PORT = process.env.PORT || 5000;
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "handlebars");
+
 app.use(bodyParser.json());
 app.use(cors());
 mongoose.connect("mongodb://localhost:27017/stackhash", {
@@ -28,6 +31,17 @@ let transporter = nodemailer.createTransport({
     pass: "suddendeath123@",
   },
 });
+transporter.use(
+  "compile",
+  hbs({
+    viewEngine: {
+      layoutsDir: __dirname + "/views/layouts",
+      partialsDir: __dirname + "/views/layouts/partials",
+      defaultLayout: "mail",
+    },
+    viewPath: __dirname + "/views/layouts",
+  })
+);
 
 // Configure Passport
 app.use(
@@ -94,7 +108,7 @@ function getPendingTasks(user) {
     } else {
       todos.forEach((todo) => {
         if (getProgress(todo) === "Pending") {
-          pending.push(todo);
+          pending.push(todo.title);
         }
       });
 
@@ -102,10 +116,15 @@ function getPendingTasks(user) {
         from: "faketaxiforyou@gmail.com",
         to: user.username,
         subject: "Chores: Complete your pending tasks",
-        text: "Hello",
+        template: "mail",
+        context: {
+          username: user.name,
+          pending: pending,
+          redirect: `http://localhost:3000/user?user_id=${user._id}&name=${user.name}`,
+        },
       };
       cron.schedule(
-        "59 23 * * *",
+        "* * * * *",
         () => {
           transporter.sendMail(mailOptions, (err, info) => {
             if (err) {

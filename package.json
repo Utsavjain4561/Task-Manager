@@ -18,10 +18,13 @@
   },
   "homepage": "https://github.com/Utsavjain4561/Task-Manager#readme",
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
     "express-session": "^1.17.1",
+    "handlebars": "^4.5.0",
     "mongoose": "^5.9.16",
     "node-cron": "^2.0.3",
     "nodemailer": "^6.4.8",
