@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
@@ -24,11 +26,12 @@ mongoose.connect("mongodb://localhost:27017/stackhash", {
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+
 let transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "faketaxiforyou@gmail.com",
-    pass: "suddendeath123@",
+    user: process.env.email,
+    pass: process.env.pass,
   },
 });
 transporter.use(
@@ -113,7 +116,7 @@ function getPendingTasks(user) {
       });
 
       let mailOptions = {
-        from: "faketaxiforyou@gmail.com",
+        from: process.env.email,
         to: user.username,
         subject: "Chores: Complete your pending tasks",
         template: "mail",
@@ -124,7 +127,7 @@ function getPendingTasks(user) {
         },
       };
       cron.schedule(
-        "* * * * *",
+        "59 23 * * *",
         () => {
           transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
