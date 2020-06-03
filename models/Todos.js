@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const todoSchema = new mongoose.Schema({
-  title: String,
+  title: { type: String, required: true },
   dueDate: Date,
   startDate: Date,
   category: String,

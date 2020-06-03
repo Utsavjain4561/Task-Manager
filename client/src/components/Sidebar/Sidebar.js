@@ -128,7 +128,11 @@ export default class Sidebar extends Component {
             </button>
           </Ripples>
         </div>
-        <Modal userId={this.props.userId} addTodo={this.props.addTodo} />
+        <Modal
+          showError={this.props.showError}
+          userId={this.props.userId}
+          addTodo={this.props.addTodo}
+        />
       </div>
     );
   }

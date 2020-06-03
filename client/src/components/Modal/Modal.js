@@ -78,13 +78,16 @@ export default class Modal extends Component {
       .then((res) => {
         if (res.status === 200) return res.json();
         else {
-          alert(JSON.stringify(res.statusText));
+          return { msg: "Enter a TODO name" };
         }
       })
       .then((data) => {
-        data.dueDate = new Date(data.dueDate);
-        data.startDate = new Date(data.startDate);
-        this.props.addTodo(data);
+        if (data.msg) this.props.showError(data.msg);
+        else {
+          data.dueDate = new Date(data.dueDate);
+          data.startDate = new Date(data.startDate);
+          this.props.addTodo(data);
+        }
       });
   };
   handleShowForm = () => {

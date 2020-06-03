@@ -43,13 +43,15 @@ module.exports = {
               redirect: `http://localhost:3000/user?user_id=${user._id}&name=${user.name}`,
             },
           };
-          transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log("Email sendt: ", +info.response);
-            }
-          });
+          if (pending && pending.length > 0) {
+            transporter.sendMail(mailOptions, (err, info) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Email sendt: ", +info.response);
+              }
+            });
+          }
         }
       });
     }

@@ -21,7 +21,6 @@ router.get("/:id", (req, res) => {
 
 //Create Route
 router.post("/add/:id", (req, res) => {
-  console.log(req.body);
   User.findOne({ _id: req.params.id }, (err, user) => {
     if (err) {
       console.log(err);
@@ -30,6 +29,7 @@ router.post("/add/:id", (req, res) => {
       Todos.create(req.body, (err, todo) => {
         if (err) {
           console.log(err);
+          res.status(400).json({ msg: "Enter a TODO name" });
         } else {
           user.todos.push(todo);
           user.save();

@@ -24,22 +24,32 @@ export default class Login extends Component {
   };
 
   checkUser = () => {
-    axios
-      .post(
-        "http://localhost:5000/login",
-        JSON.stringify({
+    fetch(
+      "http://localhost:5000/login",
+
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           username: this.state.email,
           password: this.state.password,
         }),
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+      }
+    )
+      .then((res) => {
+        if (res.statusText === "Unauthorized") {
+          return { msg: "Invalid email or password" };
+        } else {
+          return res.json();
         }
-      )
-      .then((res) => this.props.loginUser(res.data.userId, res.data.name));
+      })
+      .then((data) => {
+        if (data.msg) this.props.showError(data.msg);
+        else this.props.loginUser(data.userId, data.name);
+      });
   };
   render() {
     return (
@@ -48,7 +58,7 @@ export default class Login extends Component {
         <div className="card-body">
           <form>
             <div className="form-group">
-              <label className="col-form-label">Email</label>
+              <label className="col-form-label">Username</label>
               <input
                 className="form-control"
                 type="text"

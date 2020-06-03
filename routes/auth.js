@@ -18,8 +18,7 @@ module.exports = function (params) {
 
     User.register(user, password, (err, newUser) => {
       if (err) {
-        console.log(err);
-        res.status(400).json(err);
+        res.status(400).json({ msg: err.message });
       } else {
         passport.authenticate("local")(req, res, () => {
           console.log("User registered");
@@ -33,25 +32,21 @@ module.exports = function (params) {
     });
   });
   // Login route
-  router.post(
-    "/login",
-    passport.authenticate("local", {
-      failureRedirect: "/login/failed",
-    }),
-    (req, res) => {
-      User.findOne({ username: req.user.username }, (err, user) => {
-        if (err) {
-          console.log(err);
-        } else {
-          sendMail(user, params.transporter);
-          res.json({ userId: user._id, name: user.name });
-        }
-      });
-    }
-  );
+  router.post("/login", passport.authenticate("local"), (req, res) => {
+    User.findOne({ username: req.user.username }, (err, user) => {
+      if (err) {
+        console.log(err);
+      } else {
+        sendMail(user, params.transporter);
+        res.json({ userId: user._id, name: user.name });
+      }
+    });
+  });
   //Login failed
   router.get("/login/failed", (req, res) => {
     console.log("failed");
+    res.redirect("https://www.google.com");
+    // res.status(400).json({ msg: "Incorrect email or password" });
   });
 
   return router;

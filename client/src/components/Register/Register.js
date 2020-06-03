@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import $ from "jquery";
 import "./Register.css";
 import Ripples from "react-ripples";
+
 export default class Login extends Component {
   constructor() {
     super();
@@ -53,17 +55,18 @@ export default class Login extends Component {
         }),
       })
         .then((res) => {
-          console.log(res);
-          if (res.statusText === "OK") {
-            return res.json();
-          }
+          return res.json();
         })
         .then((data) => {
-          console.log(data);
-          this.props.loginUser(data.userId, data.name);
+          let error = data.msg;
+          if (error) this.props.showError(error);
+          else {
+            this.props.loginUser(data.userId, data.name);
+          }
         });
     } else {
       // Show flash about error
+      this.props.showError("Password do not match");
     }
   };
 
@@ -84,7 +87,7 @@ export default class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <label className="col-form-label">Email</label>
+              <label className="col-form-label">Username</label>
               <input
                 className="form-control"
                 type="text"

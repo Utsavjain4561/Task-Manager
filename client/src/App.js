@@ -254,6 +254,7 @@ export default class App extends Component {
         <div className="row">
           <div className="sidebar-menu col-2 col-md-2">
             <Sidebar
+              showError={this.props.showError}
               addTodo={this.handleTodos}
               showTodo={this.showTodo}
               userId={this.state.userId}
