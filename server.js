@@ -11,17 +11,16 @@ const express = require("express"),
   hbs = require("nodemailer-express-handlebars"),
   todosRoutes = require("./routes/todos"),
   app = express(),
-  PORT = process.env.PORT || 5000,
-  DB_URL =process.env.DB_URL ||  "mongodb://localhost:27017/stackhash"
+  PORT = process.env.PORT || 5000;
 
 dotenv.config();
-console.log(process.env.NODE_ENV);
+
 if(process.env.NODE_ENV === "production"){
   app.use(express.static("client/build"))
 }
 app.use(bodyParser.json());
 app.use(cors());
-mongoose.connect(DB_URL, {
+mongoose.connect(process.env.DB_URL ||  "mongodb://localhost:27017/stackhash", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
