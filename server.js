@@ -15,7 +15,10 @@ const express = require("express"),
   DB_URL =process.env.DB_URL ||  "mongodb://localhost:27017/stackhash"
 
 dotenv.config();
-
+console.log(process.env.NODE_ENV);
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static("client/build"))
+}
 app.use(bodyParser.json());
 app.use(cors());
 mongoose.connect(DB_URL, {
