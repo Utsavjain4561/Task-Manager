@@ -5,6 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
+    "build":"cd client && npm run build",
+    "install-client":"cd client && npm install",
+    "heroku-postbuild":"npm run install-client && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +34,7 @@
     "node-cron": "^2.0.3",
     "nodemailer": "^6.4.8",
     "nodemailer-express-handlebars": "^2.0.0",
+    "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
