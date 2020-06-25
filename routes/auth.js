@@ -37,6 +37,7 @@ module.exports = function (params) {
       if (err) {
         console.log(err);
       } else {
+        console.log("Login success!!");
         sendMail(user, params.transporter);
         res.json({ userId: user._id, name: user.name });
       }

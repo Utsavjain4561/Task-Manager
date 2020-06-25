@@ -14,7 +14,8 @@ const express = require("express"),
   PORT = process.env.PORT || 5000;
 
 dotenv.config();
-
+console.log(process.env.NODE_ENV)
+console.log(process.env.DB_URL)
 if(process.env.NODE_ENV === "production"){
   app.use(express.static("client/build"))
 }
