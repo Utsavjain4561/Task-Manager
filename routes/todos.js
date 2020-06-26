@@ -32,6 +32,7 @@ router.post("/add/:id", (req, res) => {
           console.log(err);
           res.status(400).json({ msg: "Enter a TODO name" });
         } else {
+          console.log("Correct answer");
           user.todos.push(todo);
           user.save();
           res.status(200).send(todo);

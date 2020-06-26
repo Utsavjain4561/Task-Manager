@@ -101,7 +101,9 @@ export default class App extends Component {
     });
   };
   getTodos = (userId) => {
-    return fetch("http://localhost:5000/todos/" + userId, {
+    console.log("NODE Enviornment",process.env.NODE_ENV)
+    return fetch(process.env.NODE_ENV === "production"?"https://whispering-falls-52777.herokuapp.com/todos/"+ userId
+    :"http://localhost:5000/todos/" + userId, {
       method: "GET",
       headers: {
         Accept: "application/json",
