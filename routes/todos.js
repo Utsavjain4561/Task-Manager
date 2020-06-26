@@ -28,6 +28,7 @@ router.post("/add/:id", (req, res) => {
       req.body.userId = req.params.id;
       Todos.create(req.body, (err, todo) => {
         if (err) {
+          console.log("Wrong answer");
           console.log(err);
           res.status(400).json({ msg: "Enter a TODO name" });
         } else {

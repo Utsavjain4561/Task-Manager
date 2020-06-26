@@ -77,6 +77,7 @@ export default class Modal extends Component {
       body: JSON.stringify(todo),
     })
       .then((res) => {
+        console.log("Response status",res.status);
         if (res.status === 200) return res.json();
         else {
           return { msg: "Enter a TODO name" };
