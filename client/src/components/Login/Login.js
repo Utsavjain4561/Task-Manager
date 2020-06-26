@@ -24,7 +24,7 @@ export default class Login extends Component {
   };
 
   checkUser = () => {
-    fetch(
+    fetch(process.env.NODE_ENV==="production"?"https://whispering-falls-52777.herokuapp.com/login":
       "http://localhost:5000/login",
 
       {

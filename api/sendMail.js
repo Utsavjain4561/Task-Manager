@@ -40,7 +40,8 @@ module.exports = {
             context: {
               username: user.name,
               pending: pending,
-              redirect: `http://localhost:3000/user?user_id=${user._id}&name=${user.name}`,
+              redirect: process.env.NODE_ENV==="production"?`https://whispering-falls-52777.herokuapp.com/user?user_id=${user._id}&name=${user.name}`:
+              `http://localhost:3000/user?user_id=${user._id}&name=${user.name}`,
             },
           };
           if (pending && pending.length > 0) {

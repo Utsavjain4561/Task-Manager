@@ -40,7 +40,8 @@ export default class TodoListItem extends Component {
     let id = this.props.todo._id,
       checkedTodo = this.props.todo;
     checkedTodo.isChecked = true;
-    fetch("http://localhost:5000/todos/check/" + id, {
+    fetch(process.env.NODE_ENV==="production"?"https://whispering-falls-52777.herokuapp.com/check/"+id:
+    "http://localhost:5000/todos/check/" + id, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -56,7 +57,8 @@ export default class TodoListItem extends Component {
   };
   deleteTodo = () => {
     let id = this.props.todo._id;
-    fetch("http://localhost:5000/todos/" + id, {
+    fetch(process.env.NODE_ENV==="production"?"https://whispering-falls-52777.herokuapp.com/todos/"+id:
+    "http://localhost:5000/todos/" + id, {
       method: "DELETE",
     }).then((res) => {
       if (res.statusText === "OK") {

@@ -67,7 +67,8 @@ export default class Modal extends Component {
 
     //Adding the TODO to the main list
     // add todo to the database
-    fetch("http://localhost:5000/todos/add/" + this.props.userId, {
+    fetch(process.env.NODE_ENV?"https://whispering-falls-52777.herokuapp.com/todos/add/"+ this.props.userId:
+    "http://localhost:5000/todos/add/" + this.props.userId, {
       method: "POST",
       headers: {
         Accept: "application/json",
