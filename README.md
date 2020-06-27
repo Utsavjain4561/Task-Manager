@@ -2,7 +2,10 @@
 A TODO list application to make,track and complete tasks on time
 ![alt text](https://i.imgur.com/QhqHndw.png)
 
-##Features
+## Live Demo
+Click on the [link](https://whispering-falls-52777.herokuapp.com/) to see the live demo of the application
+
+## Features
 1. User sign up and login interface
 2. Adding todos with title, due date and category
 3. Category wise TODOS
