@@ -40,7 +40,7 @@ export default class TodoListItem extends Component {
     let id = this.props.todo._id,
       checkedTodo = this.props.todo;
     checkedTodo.isChecked = true;
-    fetch(process.env.NODE_ENV==="production"?"https://whispering-falls-52777.herokuapp.com/check/"+id:
+    fetch(process.env.NODE_ENV==="production"?"https://whispering-falls-52777.herokuapp.com/todos/check/"+id:
     "http://localhost:5000/todos/check/" + id, {
       method: "PUT",
       headers: {
