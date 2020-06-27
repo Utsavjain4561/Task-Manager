@@ -14,19 +14,25 @@ export default class Dashboard extends Component {
           showTodo={this.props.showTodo}
         />
         <div className="content" id="data">
+          {this.props.todos.length===0?
+          <div style={{ background:"white"}}className="jumbotron">
+              <h3>No new tasks found !!</h3>
+              <p>Add new tasks by clicking on <img  src="https://i.imgur.com/6dgXqic.png"/> button</p>
+            </div>:
           <ul className="todo-list">
-            {this.props.todos.map((todo) => {
-              return (
-                <li key={todo._id}>
-                  <TodoListItem
-                    todo={todo}
-                    deleteTodo={this.props.deleteTodo}
-                    checkTodo={this.props.checkTodo}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          {this.props.todos.map((todo) => {
+            return (
+              <li key={todo._id}>
+                <TodoListItem
+                  todo={todo}
+                  deleteTodo={this.props.deleteTodo}
+                  checkTodo={this.props.checkTodo}
+                />
+              </li>
+            );
+          })}
+        </ul>}
+          
         </div>
       </div>
     );
