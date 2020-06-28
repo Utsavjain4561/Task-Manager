@@ -139,7 +139,10 @@ export default class App extends Component {
       });
   };
 
-  async componentDidMount() {
+   componentDidMount() {
+     setTimeout(()=>console.log("Mounting"),5000)
+     console.log("App is mounting");
+    
     toast.configure();
     $(".heading").css("display", "none");
     $(".footer").css("display", "none");
@@ -150,7 +153,7 @@ export default class App extends Component {
       autoClose: 1000,
       hideProgressBar: true,
     });
-    await this.getTodos(userId);
+    this.getTodos(userId);
     this.setState({
       userId: userId,
     });
@@ -179,12 +182,36 @@ export default class App extends Component {
         });
       }, 4000);
     }
+  
   }
-
+  
   componentWillUnmount() {
-    this.props.signOutUser();
+    console.log("App component unmounted");
+     this.props.signOutUser();
   }
-
+  componentWillMount(){
+  
+    console.log("App will monut");
+    if(!this.props.isLoggedIn()){
+    
+      window.location="/"
+      
+      }
+   
+      
+  }
+  componentWillUpdate(){
+    console.log("App will update");
+  }
+  componentWillReceiveProps(){
+    console.log("App wil recieve")
+  }
+  componentDidUpdate(){
+    window.onpopstate=(e)=>{
+      console.log("Back button is pressed");
+      window.location="/"
+    }
+  }
   handleTodos = (todo) => {
     this.setState((prevState) => ({
       todos: [...prevState.todos, todo],
@@ -252,34 +279,41 @@ export default class App extends Component {
   };
   render() {
     return (
-      <div className="container-fluid fill">
-        <div className="row">
-          <div className="sidebar-menu col-2 col-md-2">
-            <Sidebar
-              showError={this.props.showError}
-              addTodo={this.handleTodos}
-              showTodo={this.showTodo}
-              userId={this.state.userId}
-              signOutUser={this.props.signOutUser}
-              countWork={this.state.workTodos.length}
-              countPersonal={this.state.personalTodos.length}
-              countShopping={this.state.shoppingTodos.length}
-              countOthers={this.state.othersTodos.length}
-            />
-          </div>
-          <div className="dashboard col-2 col-md-10">
-            <Dashboard
-              todos={this.state.todos}
-              userId={this.state.userId}
-              checkTodo={this.checkTodo}
-              showSearchTodo={this.showSearchTodo}
-              showTodo={this.showTodo}
-              deleteTodo={this.deleteTodo}
-              sort={this.sort}
-            />
-          </div>
-        </div>
-      </div>
+    
+        
+         <div className="container-fluid fill">
+        {this.props.isLoggedIn()?
+         <div className="row">
+         <div className="sidebar-menu col-2 col-md-2">
+           <Sidebar
+             showError={this.props.showError}
+             addTodo={this.handleTodos}
+             showTodo={this.showTodo}
+             userId={this.state.userId}
+             signOutUser={this.props.signOutUser}
+             countWork={this.state.workTodos.length}
+             countPersonal={this.state.personalTodos.length}
+             countShopping={this.state.shoppingTodos.length}
+             countOthers={this.state.othersTodos.length}
+           />
+         </div>
+         <div className="dashboard col-2 col-md-10">
+           <Dashboard
+             todos={this.state.todos}
+             userId={this.state.userId}
+             checkTodo={this.checkTodo}
+             showSearchTodo={this.showSearchTodo}
+             showTodo={this.showTodo}
+             deleteTodo={this.deleteTodo}
+             sort={this.sort}
+           />
+         </div>
+       </div>:""}
+        
+       </div>
+      
+
+     
     );
   }
 }

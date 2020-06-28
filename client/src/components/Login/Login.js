@@ -51,6 +51,9 @@ export default class Login extends Component {
         else this.props.loginUser(data.userId, data.name);
       });
   };
+  componentDidMount(){
+    console.log("Login component mounted");
+  }
   render() {
     return (
       <div className="card" id="login">

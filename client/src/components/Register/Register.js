@@ -40,7 +40,7 @@ export default class Login extends Component {
   };
   handleFormSubmit = (e) => {
     e.preventDefault();
-    if (this.state.password === this.state.confirmPassword) {
+    if (this.state.password === this.state.confirmPassword) { 
       // make api call to register user
       fetch(process.env.NODE_ENV==='production'?"https://whispering-falls-52777.herokuapp.com/register":
       "http://localhost:5000/register", {

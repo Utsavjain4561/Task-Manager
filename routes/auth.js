@@ -15,7 +15,10 @@ module.exports = function (params) {
       }),
       password = req.body.password,
       name = req.body.name;
-
+      // Mail verification of user 
+      // send a link to users mail address
+      // confirm it on different route
+      //update users info and then register the user
     User.register(user, password, (err, newUser) => {
       if (err) {
         res.status(400).json({ msg: err.message });

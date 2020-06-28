@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import $ from "jquery";
@@ -8,6 +9,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import "./LandingPage.css";
 import App from "./App";
+import { stat } from "fs";
 
 export default class LandingPage extends Component {
   constructor() {
@@ -24,6 +26,7 @@ export default class LandingPage extends Component {
       hideProgressBar: true,
       autoClose: 5000,
     });
+    
   };
   loginUser = (userid, name) => {
     $(".heading").css("display", "none");
@@ -34,14 +37,23 @@ export default class LandingPage extends Component {
     });
   };
   signOutUser = () => {
-    window.location = "/";
+   window.location="/";
     console.log("sign out clicked");
 
     this.setState({
       isLoggedIn: false,
     });
   };
-
+  checkStatus=()=>{
+    if(this.state.isLoggedIn)
+    return true;
+    else{
+     
+      return false;
+    }
+    
+  }
+  
   render() {
     return (
       <Router>
@@ -52,7 +64,7 @@ export default class LandingPage extends Component {
           <Register showError={this.showError} loginUser={this.loginUser} />
         </Route>
         <Route path="/user">
-          <App showError={this.showError} signOutUser={this.signOutUser} />
+          <App isLoggedIn={this.checkStatus} showError={this.showError} signOutUser={this.signOutUser} />
         </Route>
 
         {this.state.isLoggedIn ? (
