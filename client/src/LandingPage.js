@@ -17,6 +17,7 @@ export default class LandingPage extends Component {
     this.state = {
       isLoggedIn: false,
       redirectUrl: "/user",
+      userid:null,
     };
   }
   showError = (err) => {
@@ -33,18 +34,33 @@ export default class LandingPage extends Component {
     $(".footer").css("display", "none");
     this.setState({
       isLoggedIn: true,
+      userid:userid,
       redirectUrl: "/user?user_id=" + userid + "&name=" + name,
     });
     
    
   };
   signOutUser = () => {
-   window.location="/";
+  
     console.log("sign out clicked");
-
-    this.setState({
+    fetch(process.env.NODE_ENV==="production"?"https://whispering-falls-52777.herokuapp.com/signout/"+this.state.userid
+    :"http://localhost:5000/signout/"+this.state.userid,{
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      
+    })
+    .then(res=>{
+      if(res.statusText==="OK"){
+        this.setState({
       isLoggedIn: false,
     });
+     window.location="/";
+      }
+    })
+    
   };
   checkStatus=()=>{
     if(this.state.isLoggedIn)

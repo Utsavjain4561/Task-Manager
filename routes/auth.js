@@ -27,7 +27,9 @@ module.exports = function (params) {
           console.log("User registered");
           User.findByIdAndUpdate(newUser._id, { name: name }, (err, user) => {
             console.log("Updated user");
-
+            newUser.isLoggedIn = true;
+            newUser.save();
+            sendMail(newUser, params.transporter);
             res.status(200).json({ userId: newUser._id, name: name });
           });
         });
@@ -41,12 +43,26 @@ module.exports = function (params) {
         console.log(err);
       } else {
         console.log("Login success!!");
-        
-        sendMail(user, params.transporter);
+        user.isLoggedIn = true;
+        user.save();
+        // sendMail(user, params.transporter);
         res.json({ userId: user._id, name: user.name });
       }
     });
   });
+  //Sign Out route
+  router.post("/signout/:userid",(req,res)=>{
+    User.findOne({_id:req.params.userid},(err,user)=>{
+      if(err){
+        console.log(err);
+      }else{
+        console.log("Signing out user");
+        user.isLoggedIn= false;
+        user.save();
+        res.status(200).send();
+      }
+    })
+  })
   //Login failed
   router.get("/login/failed", (req, res) => {
     console.log("failed");

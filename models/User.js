@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
       ref: "Todo",
     },
   ],
+  isLoggedIn:{
+    type:Boolean,
+    default:false,
+  }
 });
 userSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model("User", userSchema);

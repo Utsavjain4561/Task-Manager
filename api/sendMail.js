@@ -56,8 +56,8 @@ module.exports = {
         }
       });
     }
-
-    cron.schedule("59 23 * * *", () => getPendingTasks(user), {
+    //getPendingTasks(user)
+    cron.schedule("0 59 23 * * *", () => getPendingTasks(user), {
       scheduled: true,
       timezone: "Asia/Kolkata",
     });

@@ -140,8 +140,7 @@ export default class App extends Component {
   };
 
    componentDidMount() {
-     setTimeout(()=>console.log("Mounting"),5000)
-     console.log("App is mounting");
+     
     
     toast.configure();
     $(".heading").css("display", "none");
