@@ -193,8 +193,8 @@ export default class App extends Component {
   
     console.log("App will monut");
     if(!this.props.isLoggedIn()){
-    
-      window.location="/"
+      
+      window.location="/";
       
       }
    

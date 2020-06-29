@@ -165,9 +165,17 @@ export default class Modal extends Component {
                         margin: "0",
                       }}
                     >
+                     <span
+                        className="list-icon"
+                        style={{ backgroundColor:this.state.category==="Others"?colorNames.colors[3]:colorNames.dim_colors[3] }}
+                        type="button"
+                        onClick={() => this.handleCategory("Others")}
+                      >
+                        O
+                      </span>
                       <span
                         className="list-icon"
-                        style={{ backgroundColor: colorNames.colors[0] }}
+                        style={{ backgroundColor:this.state.category==="Work"?colorNames.colors[0]:colorNames.dim_colors[0] }}
                         type="button"
                         onClick={() => this.handleCategory("Work")}
                       >
@@ -175,7 +183,7 @@ export default class Modal extends Component {
                       </span>
                       <span
                         className="list-icon"
-                        style={{ backgroundColor: colorNames.colors[1] }}
+                        style={{ backgroundColor:this.state.category==="Personal"?colorNames.colors[1]:colorNames.dim_colors[1] }}
                         type="button"
                         onClick={() => this.handleCategory("Personal")}
                       >
@@ -183,20 +191,13 @@ export default class Modal extends Component {
                       </span>
                       <span
                         className="list-icon"
-                        style={{ backgroundColor: colorNames.colors[2] }}
+                        style={{ backgroundColor:this.state.category==="Shopping"?colorNames.colors[2]:colorNames.dim_colors[2] }}
                         type="button"
                         onClick={() => this.handleCategory("Shopping")}
                       >
                         S
                       </span>
-                      <span
-                        className="list-icon"
-                        style={{ backgroundColor: colorNames.colors[3] }}
-                        type="button"
-                        onClick={() => this.handleCategory("Others")}
-                      >
-                        O
-                      </span>
+                     
                     </div>
                   </div>
                 </div>

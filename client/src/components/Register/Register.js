@@ -13,7 +13,19 @@ export default class Login extends Component {
       username: "",
       password: "",
       confirmPassword: "",
+      showPassword:false,
+      showConfirmPassword:false,
     };
+  }
+  showPassword=()=>{
+    this.setState(prevState=>({
+      showPassword:!prevState.showPassword,
+    }))
+  }
+  showConfirmPassword=()=>{
+    this.setState(prevState=>({
+      showConfirmPassword:!prevState.showConfirmPassword,
+    }))
   }
   handleUsernameChange = (e) => {
     this.setState({
@@ -102,21 +114,23 @@ export default class Login extends Component {
               <label className="col-form-label">Password</label>
               <input
                 className="form-control"
-                type="password"
+                type={this.state.showPassword?"type":"password"}
                 value={this.state.password}
                 onChange={this.handlePasswordChange}
                 placeholder="Enter Password"
               />
+              <span style={{fontSize:"12px"}}><input style={{width:"10px",height:"10px",margin:"5px"}}  type="checkbox" onClick={this.showPassword} />show password</span>
             </div>
             <div className="form-group">
               <label className="col-form-label">Confirm Password</label>
               <input
                 className="form-control"
-                type="password"
+                type={this.state.showConfirmPassword?"type":"password"}
                 value={this.state.confirmPassword}
                 onChange={this.handleConfirmPassword}
                 placeholder="Enter Password"
               />
+              <span style={{fontSize:"12px"}}><input style={{width:"10px",height:"10px",margin:"5px"}}  type="checkbox" onClick={this.showConfirmPassword} />show password</span>
             </div>
             <span id="note">
               Already a member ?<Link to="/"> Login</Link>

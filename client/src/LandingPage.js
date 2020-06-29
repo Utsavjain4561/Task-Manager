@@ -35,6 +35,8 @@ export default class LandingPage extends Component {
       isLoggedIn: true,
       redirectUrl: "/user?user_id=" + userid + "&name=" + name,
     });
+    
+   
   };
   signOutUser = () => {
    window.location="/";
@@ -53,7 +55,7 @@ export default class LandingPage extends Component {
     }
     
   }
-  
+ 
   render() {
     return (
       <Router>

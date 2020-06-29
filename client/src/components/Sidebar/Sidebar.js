@@ -14,9 +14,13 @@ export default class Sidebar extends Component {
     super();
     this.state = {
       showForm: false,
+      category:"All",
     };
   }
   handleClickItem = (category) => {
+    this.setState({
+      category:category,
+    })
     this.props.showTodo(category);
   };
   componentDidUpdate() {
@@ -34,12 +38,13 @@ export default class Sidebar extends Component {
         <div className="side-body">
           <ul>
             <span
+              
               className="menu-title"
-              onClick={() => this.props.showTodo("All")}
+              onClick={() => this.handleClickItem("All")}
             >
               Category
             </span>
-            <li>
+            <li style={{backgroundColor:this.state.category==="Work"?"rgb(0,0,0)":""}}>
               <div className="menu-list">
                 <div
                   style={{ backgroundColor: "rgb(43,151,224)" }}
@@ -49,7 +54,7 @@ export default class Sidebar extends Component {
                 </div>
                 <span
                   onClick={() => {
-                    this.props.showTodo("Work");
+                    this.handleClickItem("Work");
                   }}
                 >
                   Work
@@ -57,7 +62,7 @@ export default class Sidebar extends Component {
                 <span className="count">{this.props.countWork}</span>
               </div>
             </li>
-            <li>
+            <li style={{backgroundColor:this.state.category==="Personal"?"rgb(0,0,0)":""}}>
               <div className="menu-list">
                 <div
                   style={{ backgroundColor: "rgb(156,86,184)" }}
@@ -65,13 +70,13 @@ export default class Sidebar extends Component {
                 >
                   P
                 </div>
-                <span onClick={() => this.props.showTodo("Personal")}>
+                <span onClick={() => this.handleClickItem("Personal")}>
                   Personal
                 </span>
                 <span className="count">{this.props.countPersonal}</span>
               </div>
             </li>
-            <li>
+            <li style={{backgroundColor:this.state.category==="Shopping"?"rgb(0,0,0)":""}}>
               <div className="menu-list">
                 <div
                   style={{ backgroundColor: "rgb(81,216,138)" }}
@@ -79,13 +84,13 @@ export default class Sidebar extends Component {
                 >
                   S
                 </div>
-                <span onClick={() => this.props.showTodo("Shopping")}>
+                <span onClick={() => this.handleClickItem("Shopping")}>
                   Shopping
                 </span>
                 <span className="count">{this.props.countShopping}</span>
               </div>
             </li>
-            <li>
+            <li style={{backgroundColor:this.state.category==="Others"?"rgb(0,0,0)":""}}>
               <div className="menu-list">
                 <div
                   style={{ backgroundColor: "rgb(255,85,33)" }}
@@ -93,7 +98,7 @@ export default class Sidebar extends Component {
                 >
                   O
                 </div>
-                <span onClick={() => this.props.showTodo("Others")}>
+                <span onClick={() => this.handleClickItem("Others")}>
                   Others
                 </span>
                 <span className="count">{this.props.countOthers}</span>

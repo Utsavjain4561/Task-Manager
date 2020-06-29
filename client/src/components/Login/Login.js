@@ -10,7 +10,13 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      showPassword:false,
     };
+  }
+  showPassword=()=>{
+    this.setState(prevState=>({
+      showPassword:!prevState.showPassword,
+    }))
   }
   handleEmailChange = (e) => {
     this.setState({
@@ -74,11 +80,13 @@ export default class Login extends Component {
               <label className="col-form-label">Password</label>
               <input
                 className="form-control"
-                type="password"
+                type={this.state.showPassword?"text":"password"}
                 value={this.state.password}
                 onChange={this.handlePasswordChange}
                 placeholder="Enter Password"
               />
+              <span style={{fontSize:"12px"}}><input style={{width:"10px",height:"10px",margin:"5px"}}  type="checkbox" onClick={this.showPassword} />show password</span>
+             
             </div>
             <span>
               New user ?<Link to="/signup"> Sign Up</Link>
