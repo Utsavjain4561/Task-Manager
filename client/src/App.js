@@ -6,6 +6,7 @@ import $ from "jquery";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { stat } from "fs";
 
 export default class App extends Component {
   constructor() {
@@ -139,7 +140,7 @@ export default class App extends Component {
       });
   };
 
-   componentDidMount() {
+  async componentDidMount() {
      
     
     toast.configure();
@@ -152,7 +153,7 @@ export default class App extends Component {
       autoClose: 1000,
       hideProgressBar: true,
     });
-    this.getTodos(userId);
+    await this.getTodos(userId);
     this.setState({
       userId: userId,
     });
@@ -167,7 +168,10 @@ export default class App extends Component {
         }));
       }
     });
+   
     if (this.state.pending > 0) {
+      
+
       setTimeout(() => {
         toast.error(`${this.state.pending} tasks pending`, {
           position: toast.POSITION.BOTTOM_RIGHT,
