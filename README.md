@@ -1,5 +1,5 @@
 ## Chores
-A TODO list application to make,track and complete tasks on time
+A TODO list application to make,track and complete tasks on time very easily
 ![alt text](https://i.imgur.com/QhqHndw.png)
 
 ## Live Demo
